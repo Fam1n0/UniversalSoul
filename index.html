@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #000, #000);
+}
+
+#universe {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: none;
+}
+
+#individualSoul {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: #fff;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s;
+}
+</style>
+<title>Universal Soul Art</title>
+</head>
+<body>
+<div id="universe">
+  <div id="individualSoul"></div>
+</div>
+<audio id="cosmicSound" loop>
+  <source src="path/to/your/cosmic_sound.mp3" type="audio/mpeg">
+</audio>
+<script>
+const universe = document.getElementById('universe');
+const individualSoul = document.getElementById('individualSoul');
+const cosmicSound = document.getElementById('cosmicSound');
+
+let isPlaying = false;
+
+function togglePlay() {
+  if (isPlaying) {
+    cosmicSound.pause()
+  } else {
+    cosmicSound.play();
+  }
+};
+
+cosmicSound.onplaying = () => { isPlaying = true; };
+cosmicSound.onpause = () => { isPlaying = false; };
+
+universe.addEventListener('mousemove', (e) => {
+  let x = e.clientX / window.innerWidth - 0.5;
+  let y = e.clientY / window.innerHeight - 0.5;
+  
+  individualSoul.style.transform = `translate(-50%, -50%) scale(${1 + x}) rotate(${y * 360}deg)`;
+
+  document.body.style.background = `radial-gradient(circle at ${e.pageX}px ${e.pageY}px, #222, #000)`;
+});
+
+universe.addEventListener('click', () => {
+  togglePlay();
+
+  const star = document.createElement('div');
+  star.style.width = '2px';
+  star.style.height = '2px';
+  star.style.backgroundColor = '#fff';
+  star.style.position = 'absolute';
+  star.style.top = `${Math.random() * 100}%`;
+  star.style.left = `${Math.random() * 100}%`;
+
+  universe.appendChild(star);
+
+  setTimeout(() => {
+    star.remove();
+  }, 2000);
+});
+</script>
+</body>
+</html>
